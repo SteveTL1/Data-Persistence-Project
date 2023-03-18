@@ -50,7 +50,7 @@ public class MainManager : MonoBehaviour
                 forceDir.Normalize();
 
                 Ball.transform.SetParent(null);
-                Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
+                Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);                
             }
         }
         else if (m_GameOver)
@@ -70,7 +70,13 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (m_Points > SaveGameManager.Instance.savePlayerScore)
+        {
+            SaveGameManager.Instance.savePlayerScore = m_Points;
+            SaveGameManager.Instance.savePlayerName = SaveGameManager.Instance.dontShowPlayerName;
+            SaveGameManager.Instance.SaveDataOnClick();
+        }
         m_GameOver = true;
-        GameOverText.SetActive(true);
+        GameOverText.SetActive(true);     
     }
 }
